@@ -83,25 +83,25 @@ public class DLinkedSeq<E> implements Seq<E> {
   }
 
   @Override
-  public <E2> Seq<E2> map(Function<E, E2> f) {
+  public <E2> DLinkedSeq<E2> map(Function<E, E2> f) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'map'");
   }
 
   @Override
-  public Seq<E> filter(Function<E, Boolean> predicate) {
+  public DLinkedSeq<E> filter(Function<E, Boolean> predicate) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'filter'");
   }
 
   @Override
-  public Seq<E> takeWhile(Function<E, Boolean> predicate) {
+  public DLinkedSeq<E> takeWhile(Function<E, Boolean> predicate) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'takeWhile'");
   }
 
   @Override
-  public Seq<E> dropWhile(Function<E, Boolean> predicate) {
+  public DLinkedSeq<E> dropWhile(Function<E, Boolean> predicate) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'dropWhile'");
   }
