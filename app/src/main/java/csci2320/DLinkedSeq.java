@@ -10,7 +10,7 @@ public class DLinkedSeq<E> implements Seq<E> {
 
   // Put your private data here
 
-  // I'm giving you two static factories and an equals method to make testing easier.
+  // I'm giving you some helper method to make testing easier.
   @SuppressWarnings("unchecked")
   public static <E> DLinkedSeq<E> of(E... elems) {
     DLinkedSeq<E> ret = new DLinkedSeq<>();
@@ -32,6 +32,22 @@ public class DLinkedSeq<E> implements Seq<E> {
     for (int i = 0; i < size(); ++i)
       if (thatSeq.get(i) != get(i)) return false;
     return true;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder("DLinkedSeq(");
+    boolean first = true;
+    for (E e: this) {
+      if (!first) {
+        sb.append(", " + e);
+      } else {
+        sb.append(e.toString());
+        first = false;
+      }
+    }
+    sb.append(")");
+    return sb.toString();
   }
 
   @Override
