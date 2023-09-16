@@ -26,11 +26,11 @@ public class DLinkedSeq<E> implements Seq<E> {
 
   @Override
   public boolean equals(Object that) {
-    if (!(that instanceof DLinkedSeq)) return false;
+    if (that == null || !(that instanceof DLinkedSeq)) return false;
     DLinkedSeq<?> thatSeq = (DLinkedSeq<?>)that;
     if (thatSeq.size() != size()) return false;
-    for (int i = 0; i < size(); ++i)
-      if (thatSeq.get(i) != get(i)) return false;
+    for (Iterator<?> iter1 = thatSeq.iterator(), iter2 = this.iterator(); iter1.hasNext();)
+      if (!iter1.next().equals(iter2.next())) return false;
     return true;
   }
 
