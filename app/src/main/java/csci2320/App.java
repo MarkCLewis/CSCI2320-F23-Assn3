@@ -10,14 +10,18 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class App {
-        static record IndexValuePair(int index, int value) {}
+    static record IndexValuePair(int index, int value) {}
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
+            String testType = sc.next();
+            if (testType.equals("speed")) {
+                SpeedTest.run();
+                return;
+            }
             Random rand = new Random(sc.nextLong());
             Seq<Integer> seq = buildSeq(sc.nextInt(), rand);
             printSeqSums(seq);
-            String testType = sc.next();
             switch (testType) {
                 case "gs":
                     testGetSet(seq, rand);

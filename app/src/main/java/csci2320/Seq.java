@@ -128,7 +128,7 @@ public interface Seq<E> extends Iterable<E>, Function<Integer, E> {
 
   /**
    * Modify the current collection to remove all the elements from the beginning that satisfy
-   * the predicate. Stop removing elements with the first one that satisfies the predicate.
+   * the predicate. Stop removing elements with the first one that doesn't satisfy the predicate.
    * @param predicate the predicate indicating which elements to remove.
    */
   void removeWhile(Function<E, Boolean> predicate);
