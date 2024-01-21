@@ -20,50 +20,50 @@ public class App {
                 return;
             }
             Random rand = new Random(sc.nextLong());
-            Seq<Integer> seq = buildSeq(sc.nextInt(), rand);
-            printSeqSums(seq);
+            int size1 = sc.nextInt();
+            int size2 = sc.nextInt();
             switch (testType) {
-                case "gs":
-                    testGetSet(seq, rand);
+                case "basics":
+                    System.out.println("Get Set 1");
+                    testGetSet(size1, rand);
+                    System.out.println("Get Set 2");
+                    testGetSet(size2, rand);
+                    System.out.println("Remove 1");
+                    testRemove(size1, rand);
+                    System.out.println("Remove 2");
+                    testRemove(size2, rand);
+                    System.out.println("Insert 1");
+                    testInsert(size1, rand);
+                    System.out.println("Insert 2");
+                    testInsert(size2, rand);
                     break;
-                case "remove":
-                    testRemove(seq, rand);
-                    break;
-                case "insert":
-                    testInsert(seq, rand);
-                    break;
-                case "map":
-                    seq = testMap(seq, rand);
-                    break;
-                case "filter":
-                    seq = testFilter(seq, rand);
-                    break;
-                case "take":
-                    seq = testTake(seq, rand);
-                    break;
-                case "drop":
-                    seq = testDrop(seq, rand);
-                    break;
-                case "find":
-                    testFind(seq, rand);
-                    break;
-                case "fold":
-                    testFold(seq, rand);
-                    break;
-                case "mapped":
-                    testMapped(seq, rand);
-                    break;
-                case "filtered":
-                    testFiltered(seq, rand);
-                    break;
-                case "keep":
-                    testKeep(seq, rand);
-                    break;
-                case "removed":
-                    testRemoved(seq, rand);
+                case "higher-order":
+                    System.out.println("Map 1");
+                    testMap(size1, rand);
+                    System.out.println("Filter 1");
+                    testFilter(size1, rand);
+                    System.out.println("Map 2");
+                    testMap(size2, rand);
+                    System.out.println("Filter 2");
+                    testFilter(size2, rand);
+                    System.out.println("Take");
+                    testTake(size2, rand);
+                    System.out.println("Drop");
+                    testDrop(size2, rand);
+                    System.out.println("Find");
+                    testFind(size2, rand);
+                    System.out.println("Fold");
+                    testFold(size2, rand);
+                    System.out.println("Mapped");
+                    testMapped(size2, rand);
+                    System.out.println("Filtered");
+                    testFiltered(size2, rand);
+                    System.out.println("Keep");
+                    testKeep(size2, rand);
+                    System.out.println("Removed");
+                    testRemoved(size2, rand);
                     break;
             }
-            printSeqSums(seq);
         }
     }
 
@@ -79,7 +79,9 @@ public class App {
         System.out.println(sum);
     }
 
-    static void testGetSet(Seq<Integer> seq, Random rand) {
+    static void testGetSet(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         int iters = Math.min(rand.nextInt(10)+10, seq.size() / 3);
         DLinkedSeq<IndexValuePair> pairs = new DLinkedSeq<>();
         Set<Integer> used = new HashSet<>();
@@ -97,13 +99,16 @@ public class App {
                 return;
             }
         }
+        printSeqSums(seq);
     }
 
-    static void testRemove(Seq<Integer> seq, Random rand) {
+    static void testRemove(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         int iters = seq.size() / 3;
         for (int i = 0; i < iters; ++i) {
             int len = seq.size();
-            int index = rand.nextInt(seq.size() - 1) + 1;
+            int index = rand.nextInt(seq.size() - 2) + 1;
             int before = seq.get(index-1);
             int at = seq.get(index);
             int after = seq.get(index+1);
@@ -125,13 +130,16 @@ public class App {
                 return;
             }
         }
+        printSeqSums(seq);
     }
 
-    static void testInsert(Seq<Integer> seq, Random rand) {
+    static void testInsert(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         int iters = seq.size() / 3;
         for (int i = 0; i < iters; ++i) {
             int len = seq.size();
-            int index = rand.nextInt(seq.size() - 1) + 1;
+            int index = rand.nextInt(seq.size() - 2) + 1;
             int before = seq.get(index-1);
             int at = seq.get(index);
             int newValue = rand.nextInt();
@@ -153,34 +161,39 @@ public class App {
                 return;
             }
         }
+        printSeqSums(seq);
     }
 
-    static Seq<Integer> testMap(Seq<Integer> seq, Random rand) {
+    static void testMap(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         var seq2 = seq.map(i -> i/2);
         for (int i = 0; i < seq.size(); ++i) {
             if (seq2.get(i) != seq.get(i) / 2) {
                 System.out.println("Division maps didn't match.");
-                return seq2;
+                return;
             }
         }
+        printSeqSums(seq2);
         var seq3 = seq.map(i -> "str:" + i);
         for (int i = 0; i < seq.size(); ++i) {
             if (!seq3.get(i).equals("str:" + seq.get(i))) {
                 System.out.println("String maps didn't match. " + seq3.get(i) + "!= str:" + seq.get(i));
-                return seq2;
+                return;
             }
         }
-        return seq2;
     }
 
-    static Seq<Integer> testFilter(Seq<Integer> seq, Random rand) {
+    static void testFilter(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         var evens = seq.filter(i -> i % 2 == 0);
         int j = 0;
         for (int i = 0; i < seq.size(); ++i) {
             if (seq.get(i) % 2 == 0) {
                 if (seq.get(i) != evens.get(j)) {
                     System.out.println("Filter match error.");
-                    return evens;
+                    return;
                 }
                 j++;
             }
@@ -188,28 +201,36 @@ public class App {
         if (j != evens.size()) {
             System.out.println("Filter length mismatch.");
         }
-        return evens;
+        printSeqSums(evens);
     }
 
-    static Seq<Integer> testTake(Seq<Integer> seq, Random rand) {
+    static void testTake(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         Set<Integer> firstFew = new HashSet<>();
         int toTake = Math.min(seq.size()/2, 5+rand.nextInt(5));
         for (int i = 0; i < toTake; ++i) {
             firstFew.add(seq.get(i));
         }
-        return seq.takeWhile(i -> firstFew.contains(i));
+        var seq2 = seq.takeWhile(i -> firstFew.contains(i));
+        printSeqSums(seq2);
     }
 
-    static Seq<Integer> testDrop(Seq<Integer> seq, Random rand) {
+    static void testDrop(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         Set<Integer> firstFew = new HashSet<>();
         int toTake = Math.min(seq.size()/2, 5+rand.nextInt(5));
         for (int i = 0; i < toTake; ++i) {
             firstFew.add(seq.get(i));
         }
-        return seq.dropWhile(i -> firstFew.contains(i));
+        var seq2 = seq.dropWhile(i -> firstFew.contains(i));
+        printSeqSums(seq2);
     }
 
-    static void testFind(Seq<Integer> seq, Random rand) {
+    static void testFind(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         Optional<Integer> div5loc = seq.find(i -> i % 5 == 0);
         int j = 0;
         while(j < seq.size() && seq.get(j) % 5 != 0) ++j;
@@ -235,7 +256,9 @@ public class App {
         }
     }
 
-    static void testFold(Seq<Integer> seq, Random rand) {
+    static void testFold(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         var sumL = 0L;
         for (int i: seq) sumL += i;
         var leftSum = seq.foldLeft(0L, (Long s, Integer i) -> s + i);
@@ -263,29 +286,41 @@ public class App {
         }
     }
 
-    static void testMapped(Seq<Integer> seq, Random rand) {
+    static void testMapped(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         seq.mapped(i -> i / 2);
+        printSeqSums(seq);
     }
 
-    static void testFiltered(Seq<Integer> seq, Random rand) {
+    static void testFiltered(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         seq.filtered(i -> i % 2 == 0);
+        printSeqSums(seq);
     }
 
-    static void testKeep(Seq<Integer> seq, Random rand) {
+    static void testKeep(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         Set<Integer> firstFew = new HashSet<>();
         int toTake = Math.min(seq.size()/2, 5+rand.nextInt(5));
         for (int i = 0; i < toTake; ++i) {
             firstFew.add(seq.get(i));
         }
         seq.keepWhile(i -> firstFew.contains(i));
+        printSeqSums(seq);
     }
 
-    static void testRemoved(Seq<Integer> seq, Random rand) {
+    static void testRemoved(int size, Random rand) {
+        Seq<Integer> seq = buildSeq(size, rand);
+        printSeqSums(seq);
         Set<Integer> firstFew = new HashSet<>();
         int toTake = Math.min(seq.size()/2, 5+rand.nextInt(5));
         for (int i = 0; i < toTake; ++i) {
             firstFew.add(seq.get(i));
         }
         seq.removeWhile(i -> firstFew.contains(i));
+        printSeqSums(seq);
     }
 }
