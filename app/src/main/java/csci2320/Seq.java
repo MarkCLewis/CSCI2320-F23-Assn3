@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public interface Seq<E> extends Iterable<E>, Function<Integer, E> {
+public interface Seq<E> extends Iterable<E> {
   // Basic Methods
   /**
    * Returns the value at the given index. Throws an IndexOutOfBoundsExcepetion if it is out of range.

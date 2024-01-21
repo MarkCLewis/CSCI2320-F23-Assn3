@@ -57,12 +57,6 @@ public class DLinkedSeq<E> implements Seq<E> {
   }
 
   @Override
-  public E apply(Integer index) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'apply'");
-  }
-
-  @Override
   public E get(int index) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'get'");
